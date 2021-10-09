@@ -44,7 +44,8 @@ public class PostsApiControllerTest {
         //given
         String title = "title";
         String content = "content";
-        PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder().title(title)
+        PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
+                .title(title)
                 .content(content)
                 .author("author")
                 .build();
@@ -66,11 +67,13 @@ public class PostsApiControllerTest {
     @Test
     public void updatePosts() throws Exception {
         //given
-        Posts savedPosts = postsRepository.save(Posts.builder()
+        Posts savedPosts = postsRepository.save(
+                Posts.builder()
                 .title("title")
                 .content("content")
                 .author("author")
-                .build());
+                .build()
+        );
 
         Long updateId = savedPosts.getId();
         String expectedTitle = "title2";
@@ -88,6 +91,8 @@ public class PostsApiControllerTest {
         // when
         ResponseEntity<Long> responseEntity = restTemplate
                 .exchange(url, HttpMethod.PUT, requestEntity, Long.class);
+
+
 
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
